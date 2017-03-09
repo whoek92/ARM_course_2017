@@ -41,7 +41,7 @@ main(int argc, char* argv[])
   // at high speed.
 
   // Infinite loop
-	RCC->CFGR = 0;
+	RCC->CFGR = 0;		// Set system clock to HSI (16MHz internal RC-oscillator)
 	gpio_button_init();
 	gpio_led_init();
 	timer_init();

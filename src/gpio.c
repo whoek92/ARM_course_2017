@@ -17,32 +17,36 @@ uint8_t resetPin;
 
 void gpio_led_red_init()
 {
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
-	GPIOC->MODER |= GPIO_MODER_MODER0_0;
-	GPIOC->OTYPER |= GPIO_OTYPER_OT_0;
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;	// Enable GPIO C
+	GPIOC->MODER |= GPIO_MODER_MODER0_0;	// Set PC0 to output
+	GPIOC->OTYPER |= GPIO_OTYPER_OT_0;		// Set output to open-drain
 }
 
 void gpio_led_red_on()
 {
-	GPIOC->BSRR |= GPIO_BSRR_BR_0;
+	GPIOC->BSRR |= GPIO_BSRR_BR_0;		// Reset PC0
 }
 
 void gpio_led_red_off()
 {
-	GPIOC->BSRR |= GPIO_BSRR_BS_0;
+	GPIOC->BSRR |= GPIO_BSRR_BS_0;		// Set PC0
 }
 
 void gpio_led_red_toggle()
 {
-	GPIOC->ODR ^= GPIO_ODR_ODR_0;
+	GPIOC->ODR ^= GPIO_ODR_ODR_0;		// Toggle PC0
 }
 
 void gpio_led_init()
 {
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
-	GPIOC->MODER |= GPIO_MODER_MODER0_0 + GPIO_MODER_MODER1_0 + GPIO_MODER_MODER2_0;
-	GPIOC->OTYPER |= GPIO_OTYPER_OT_0 + GPIO_OTYPER_OT_1 + GPIO_OTYPER_OT_2;
-	GPIOC->BSRR |= (0x07) << 16;
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;	// Enable GPIO C
+	GPIOC->MODER |= GPIO_MODER_MODER0_0 	// Set PC0, PC1 and PC2 to output
+				  + GPIO_MODER_MODER1_0 	//
+				  + GPIO_MODER_MODER2_0;	//
+	GPIOC->OTYPER |= GPIO_OTYPER_OT_0 		// Set PC0, PC1 and PC2 to open-drain
+			      + GPIO_OTYPER_OT_1 		//
+				  + GPIO_OTYPER_OT_2;		//
+	GPIOC->BSRR |= (0x07) << 16;			// Set PC0, PC1 and PC2 to '1'
 }
 
 void gpio_led_set(uint32_t rgb)
@@ -121,41 +125,42 @@ void gpio_led_set(uint32_t rgb)
 
 void gpio_led_toggle(uint32_t rgb)
 {
-	GPIOC->ODR ^= (rgb & 0b111);
+	GPIOC->ODR ^= (rgb & 0b111);	// Toggle PC0, PC1 and PC2 based
+									// on the rgb value passed
 }
 
 void gpio_button_init()
 {
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
-	GPIOA->PUPDR |= (0b0101);
-	EXTI->IMR |= 0b11;
-	EXTI->FTSR |= 0b11;
-	NVIC_EnableIRQ(EXTI0_IRQn);
-	NVIC_EnableIRQ(EXTI1_IRQn);
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;	// Enable GPIO A
+	GPIOA->PUPDR |= (0b0101);				// Enable pull-up on PA0 and PA2
+	EXTI->IMR |= 0b11;						// Unmask EXTI channel 0 and 1 interrupt
+	EXTI->FTSR |= 0b11;						// Set interrupt on high-low transition
+	NVIC_EnableIRQ(EXTI0_IRQn);				// Enable EXTI channel 0 and 1 interrupt
+	NVIC_EnableIRQ(EXTI1_IRQn);				//
 }
 
 uint8_t gpio_button_0_read()
 {
-	return (GPIOA->IDR) & (1<<0);
+	return (GPIOA->IDR) & (1<<0);		// Return button 0 state
 }
 
 uint8_t gpio_button_1_read()
 {
-	return (GPIOA->IDR) & (1<<1);
+	return (GPIOA->IDR) & (1<<1);		// Return button 1 state
 }
 
 void EXTI1_IRQHandler(void)	// PA1 interrupt service routine
 {
-	mode--;
-	EXTI->IMR &= ~0b01;
-	EXTI->PR ^= EXTI_PR_PR0;
-	colorCount = 0;
+	mode--;						// Decrement the mode variable
+	EXTI->IMR &= ~0b01;			// Mask the interrupt of channel 0 (debouncing)
+	EXTI->PR ^= EXTI_PR_PR0;	// Reset EXTI channel 1 IFG
+	colorCount = 0;				// Reset color counter
 }
 
 void EXTI0_IRQHandler(void)	// PA0 interrupt service routine
 {
-	mode++;
-	EXTI->IMR &= ~0b10;
-	EXTI->PR ^= EXTI_PR_PR1;
-	colorCount = 0;
+	mode++;						// Increment the mode variable
+	EXTI->IMR &= ~0b10;			// Mask the interrupt of channel 1 (debouncing)
+	EXTI->PR ^= EXTI_PR_PR1;	// Reset EXTI channel 0 IFG
+	colorCount = 0;				// Reset color counter
 }
