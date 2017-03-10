@@ -42,12 +42,12 @@ main(int argc, char* argv[])
 
   // Infinite loop
 	RCC->CFGR = 0;		// Set system clock to HSI (16MHz internal RC-oscillator)
-	gpio_button_init();
-	gpio_led_init();
-	timer_init();
-	adc_init();
-	adc_start();
-	spi_init();
+	gpio_button_init();	// Initialise the registers for button 0 and 1
+	gpio_led_init();	// Initialise the leds
+	timer_init();		// Initialise TIM2
+	adc_init();		// Initialise ADC1
+	adc_start();		// Start ADC1
+	spi_init();		// Initialise SPI
 	while(1){};
 }
 

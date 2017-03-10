@@ -16,10 +16,10 @@
 extern "C" {
 #endif
 
-void adc_init();
-void adc_start();
-uint16_t adc_read();
-void ADC_IRQHandler();
+void adc_init();	// Initialises the ADC registers
+void adc_start();	// Starts the continuous or single conversion
+uint16_t adc_read();	// Read the most recent conversion
+void ADC_IRQHandler();	// ADC interrupt service routine
 
 #ifdef __cplusplus
 }

@@ -16,8 +16,8 @@
 extern "C" {
 #endif
 
-void timer_init();
-void TIM2_IRQHandler();
+void timer_init();	// Initialise TIM2
+void TIM2_IRQHandler();	// TIM2 interrupt service routine
 
 
 #ifdef __cplusplus
