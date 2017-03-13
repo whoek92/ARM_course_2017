@@ -48,6 +48,7 @@ main(int argc, char* argv[])
 	adc_init();		// Initialise ADC1
 	adc_start();		// Start ADC1
 	spi_init();		// Initialise SPI
+	WM8731_forward_mic();
 	while(1){};
 }
 

@@ -26,7 +26,7 @@ void adc_init()
   ADC1->CR2 |= ADC_CR2_ADON 			// Enable ADC
 	     + ADC_CR2_CONT 			// Set continuous conversion mode
 	     + ADC_CR2_EOCS;			// Set EOC at end of every regular conversion
-	     + ADC->CCR |= ADC_CCR_ADCPRE;	// Set PCLK2 / 8
+  ADC->CCR |= ADC_CCR_ADCPRE;			// Set PCLK2 / 8
 }
 
 void adc_start()

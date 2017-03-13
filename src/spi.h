@@ -16,6 +16,8 @@
 extern "C" {
 #endif
 
+#define _BV(A)	(1 << A)	//Bit vector definition
+
 //Definitions for the Control Words
 #define WM8731_LLI		0x00	//LEFT LINE IN REGISTER
 #define WM8731_LLI_LINVOL_0	_BV(0)	//line input volume, bit 0
@@ -113,7 +115,7 @@ void spi_init();			// Initialise the SPI registers
 void spi_out(uint16_t);			// Transmit a 16-bit SPI frame
 void WM8731_CW(uint16_t,uint16_t);	// Transmit a control word
 void WM8731_config_reset(void);		// Transmit the reset control word
-
+void WM8731_forward_mic(void);		// Forward the mic to the output
 
 #ifdef __cplusplus
 }
