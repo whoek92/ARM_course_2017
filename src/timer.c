@@ -30,10 +30,9 @@ void timer_init()
 
 void TIM2_IRQHandler()
 {
-  /*if(TIM2->SR & TIM_SR_UIF)
+  if(TIM2->SR & TIM_SR_UIF)
   {
-    pinReset++;
-    gpio_led_set(pinReset & 0b111);
-  }*/
+    gpio_led_toggle(0b111);
+  }
   TIM2->SR = 0;						// Reset all TIM2 IFGs
 }
