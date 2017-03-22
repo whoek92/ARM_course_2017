@@ -44,9 +44,9 @@ main(int argc, char* argv[])
 	RCC->CFGR = 0;		// Set system clock to HSI (16MHz internal RC-oscillator)
 	gpio_button_init();	// Initialise the registers for button 0 and 1
 	gpio_led_init();	// Initialise the leds
-	timer_init();		// Initialise TIM2
-	//adc_init();		// Initialise ADC1
-	//adc_start();		// Start ADC1
+	//timer_init();		// Initialise TIM2
+	adc_init();		// Initialise ADC1
+	adc_start();		// Start ADC1
 	spi_init();		// Initialise SPI
 	WM8731_forward_mic();
 	while(1){};

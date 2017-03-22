@@ -117,7 +117,7 @@ void gpio_led_set(uint32_t rgb)
       break;
 
     default:
-      GPIOC->BSRR = ((0b100 & 0b000) << 16) + (0b000 ^ 0x07);
+      GPIOC->BSRR = ((rgb & 0b000) << 16) + (0b000 ^ 0x07);
       EXTI->IMR |= 0b11;
       break;
   }

@@ -41,7 +41,7 @@ void spi_init()
 	     | SPI_CR1_DFF		// 16-bit data frame
 	     | SPI_CR1_SSM		// Software slave select
 	     | SPI_CR1_SSI		// Slave select high
-	     | SPI_CR1_BR		// Lowest baudrate (f/256)
+	     | (5<<3)			// Lowest baudrate (f/256)
 	     | SPI_CR1_CPHA		// Clock Phases set to 1
 	     | SPI_CR1_MSTR;		// Master mode
   SPI3->CR1 |= SPI_CR1_SPE;		// SPI enable
@@ -75,5 +75,7 @@ void WM8731_config_reset(void)
 void WM8731_forward_mic(void)
 {
   WM8731_CW(WM8731_PDC,WM8731_PDC_DACPD + WM8731_PDC_OSCPD + WM8731_PDC_ADCPD + WM8731_PDC_LINEINPD);
-  WM8731_CW(WM8731_AAPC,WM8731_AAPC_INSEL + WM8731_AAPC_MICBOOST + WM8731_AAPC_SIDETONE + WM8731_AAPC_BYPASS);
+  WM8731_CW(WM8731_LLI,WM8731_LLI_LINMUTE);
+  WM8731_CW(WM8731_RLI,WM8731_RLI_RINMUTE);
+  WM8731_CW(WM8731_AAPC,WM8731_AAPC_MICBOOST + WM8731_AAPC_SIDETONE + WM8731_AAPC_SIDEATT_0 + WM8731_AAPC_SIDEATT_1);
 }
