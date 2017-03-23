@@ -8,9 +8,8 @@
 #include "gpio.h"
 #include "timer.h"
 #include "adc.h"
-#include "spi.h"
-
 #include <stm32f4xx.h>
+#include "WM8731.h"
 
 uint32_t colorCount;
 uint8_t mode, rgb;
@@ -46,10 +45,17 @@ uint16_t adc_read()
 void ADC_IRQHandler(void)
 {
   colorCount += (ADC1->DR);			// Increment the color counter
-  //if((mode & 0b111) < 3)			// IF mode is lower than 3
-    rgb = (((colorCount >> 18) & 0b1)*0b111);	// Display counter value bits
-    GPIOC->BSRR = ((rgb & 0b100) << 16) + (rgb ^ 0b100 | 0b011);
-  //else						// ELSE
-    //gpio_led_set((ADC1->DR >> 6) & 0b111);	// Display output value bits
-  //volume = (ADC1->DR);
+  rgb = ((colorCount >> 18) & 0b111);		// Display counter value bits
+#ifndef DEBUGGINGADC
+  if((mode & 0b111) < 3)			// IF mode is lower than 3
+  {
+    gpio_led_set(rgb);
+  }
+  else						// ELSE
+    gpio_led_set((ADC1->DR >> 6) & 0b111);	// Display output value bits
+#endif /*DEBUGGING*/
+#ifdef DEBUGGINGADC
+  //GPIOC->BSRR = ((rgb & 0b111) << 16) + (rgb ^ 0b111);
+#endif /*DEBUGGING*/
+
 }

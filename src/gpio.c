@@ -8,8 +8,8 @@
 #include "gpio.h"
 #include "timer.h"
 #include "adc.h"
-#include "spi.h"
 #include <stm32f4xx.h>
+#include "WM8731.h"
 
 uint32_t colorCount;
 uint8_t mode;
