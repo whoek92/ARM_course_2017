@@ -4,32 +4,32 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/WM8731.c \
 ../src/_initialize_hardware.c \
 ../src/_write.c \
 ../src/adc.c \
 ../src/gpio.c \
 ../src/main.c \
-../src/spi.c \
 ../src/stm32f4xx_hal_msp.c \
 ../src/timer.c 
 
 OBJS += \
+./src/WM8731.o \
 ./src/_initialize_hardware.o \
 ./src/_write.o \
 ./src/adc.o \
 ./src/gpio.o \
 ./src/main.o \
-./src/spi.o \
 ./src/stm32f4xx_hal_msp.o \
 ./src/timer.o 
 
 C_DEPS += \
+./src/WM8731.d \
 ./src/_initialize_hardware.d \
 ./src/_write.d \
 ./src/adc.d \
 ./src/gpio.d \
 ./src/main.d \
-./src/spi.d \
 ./src/stm32f4xx_hal_msp.d \
 ./src/timer.d 
 

@@ -10,6 +10,7 @@
 #include "adc.h"
 #include <stm32f4xx.h>
 #include "WM8731.h"
+#include "mydefines.h"
 
 uint32_t colorCount;
 uint8_t mode;

@@ -1,5 +1,5 @@
-src/main.o: ../src/main.c ../src/gpio.h ../src/timer.h ../src/adc.h \
- ../src/spi.h ../system/include/cmsis/stm32f4xx.h \
+src/main.o: ../src/main.c ../src/gpio.h ../src/mydefines.h ../src/timer.h \
+ ../src/adc.h ../system/include/cmsis/stm32f4xx.h \
  ../system/include/cmsis/stm32f446xx.h ../system/include/cmsis/core_cm4.h \
  ../system/include/cmsis/core_cmInstr.h \
  ../system/include/cmsis/cmsis_gcc.h \
@@ -73,15 +73,15 @@ src/main.o: ../src/main.c ../src/gpio.h ../src/timer.h ../src/adc.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_spdifrx.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_dfsdm.h \
  ../system/include/stm32f4-hal/stm32f4xx_hal_lptim.h \
- ../system/include/diag/Trace.h
+ ../system/include/diag/Trace.h ../src/WM8731.h
 
 ../src/gpio.h:
+
+../src/mydefines.h:
 
 ../src/timer.h:
 
 ../src/adc.h:
-
-../src/spi.h:
 
 ../system/include/cmsis/stm32f4xx.h:
 
@@ -234,3 +234,5 @@ src/main.o: ../src/main.c ../src/gpio.h ../src/timer.h ../src/adc.h \
 ../system/include/stm32f4-hal/stm32f4xx_hal_lptim.h:
 
 ../system/include/diag/Trace.h:
+
+../src/WM8731.h:

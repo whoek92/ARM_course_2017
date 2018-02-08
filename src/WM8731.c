@@ -1,6 +1,7 @@
 #include "WM8731.h"
 #include <stm32f4xx.h>
 #include "gpio.h"
+#include "mydefines.h"
 
 //function prototypes
 void WM8731_spi_init(void);

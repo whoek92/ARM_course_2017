@@ -5,11 +5,9 @@
 
 // ----------------------------------------------------------------------------
 
-// definitions for compilation
-#define DEBUGGINGADC
-
 #include <stdio.h>
 #include "gpio.h"
+#include "mydefines.h"
 #include "timer.h"
 #include "adc.h"
 #include <stm32f4xx.h>
@@ -48,8 +46,8 @@ main(int argc, char* argv[])
 	gpio_button_init();	// Initialise the registers for button 0 and 1
 	gpio_led_init();	// Initialise the leds
 	//timer_init();		// Initialise TIM2
-	//adc_init();		// Initialise ADC1
-	//adc_start();		// Start ADC1
+	adc_init();		// Initialise ADC1
+	adc_start();		// Start ADC1
 	WM8731_init();		// Initialise SPI
 	while(1){};
 }
